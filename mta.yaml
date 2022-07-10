@@ -1,0 +1,30 @@
+_schema-version: "3.2"
+ID: Proyecto
+version: 0.0.1
+modules:
+- name: proyecto-approuter
+  type: approuter.nodejs
+  path: proyecto-approuter
+  requires:
+  - name: Proyecto_html_repo_runtime
+  parameters:
+    disk-quota: 256M
+    memory: 256M
+- name: Proyecto_ui_deployer
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: Proyecto_html_repo_host
+    parameters:
+      content-target: true
+resources:
+- name: Proyecto_html_repo_runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
+- name: Proyecto_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-host
